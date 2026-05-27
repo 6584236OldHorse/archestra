@@ -37,10 +37,12 @@ function FileStatusBadge({
   processingStatus,
   embeddingStatus,
   processingError,
+  embeddingError,
 }: {
   processingStatus?: string;
   embeddingStatus: string;
   processingError?: string | null;
+  embeddingError?: string | null;
 }) {
   if (processingStatus && processingStatus !== "completed") {
     const variants = {
@@ -96,17 +98,28 @@ function FileStatusBadge({
   };
 
   return (
-    <Badge
-      variant={
-        variants[embeddingStatus as keyof typeof variants] ?? "secondary"
-      }
-      className="capitalize text-xs"
-    >
-      {embeddingStatus === "processing" && (
-        <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-      )}
-      {labels[embeddingStatus as keyof typeof labels] ?? embeddingStatus}
-    </Badge>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Badge
+          variant={
+            variants[embeddingStatus as keyof typeof variants] ?? "secondary"
+          }
+          className="capitalize text-xs cursor-help"
+        >
+          {embeddingStatus === "processing" && (
+            <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+          )}
+          {labels[embeddingStatus as keyof typeof labels] ?? embeddingStatus}
+        </Badge>
+      </TooltipTrigger>
+      <TooltipContent>
+        {embeddingStatus === "failed" && embeddingError
+          ? embeddingError
+          : embeddingStatus === "pending"
+            ? "File is queued for embedding"
+            : "Embedding document…"}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -125,6 +138,7 @@ function FileStatusCell({
       processingStatus={current.processingStatus}
       embeddingStatus={current.embeddingStatus}
       processingError={current.processingError}
+      embeddingError={current.embeddingError}
     />
   );
 }
