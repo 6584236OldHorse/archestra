@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.53](https://github.com/archestra-ai/archestra/compare/platform-v1.2.52...platform-v1.2.53) (2026-05-27)
+
+
+### Bug Fixes
+
+* **backend:** swallow transient pg errors at process level ([#5079](https://github.com/archestra-ai/archestra/issues/5079)) ([19a7a2e](https://github.com/archestra-ai/archestra/commit/19a7a2e7f63a4109e64f0c7eeb00ba3b3608dbac))
+
+
+### Miscellaneous Chores
+
+* **e2e:** remove chat.spec.ts WireMock warmup based on misdiagnosis ([#5070](https://github.com/archestra-ai/archestra/issues/5070)) ([8861007](https://github.com/archestra-ai/archestra/commit/88610074fa61eecd23722ff485a51e6d6fa32094))
+
 ## [1.2.52](https://github.com/archestra-ai/archestra/compare/platform-v1.2.51...platform-v1.2.52) (2026-05-27)
 
 
