@@ -152,6 +152,10 @@ export const AUDIT_DECISIONS = {
     audited: false,
     reason: "chat error records; surfaced via /llm/logs",
   },
+  chatAttachmentsTable: {
+    audited: false,
+    reason: "per-message file attachments; high-volume user upload content",
+  },
   conversationCompactionsTable: {
     audited: false,
     reason: "chat compaction state; runtime artifact",
