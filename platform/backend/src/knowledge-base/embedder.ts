@@ -89,13 +89,15 @@ class EmbeddingService {
         "[Embedder] Document embeddings completed",
       );
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       await KbDocumentModel.update(documentId, {
         embeddingStatus: "failed",
+        embeddingError: errorMessage,
       });
       logger.error(
         {
           documentId,
-          error: error instanceof Error ? error.message : String(error),
+          error: errorMessage,
         },
         "[Embedder] Failed to embed document",
       );
@@ -240,6 +242,7 @@ class EmbeddingService {
       if (anyFailed) {
         await KbDocumentModel.update(documentId, {
           embeddingStatus: "failed",
+          embeddingError: "Batch embedding failed",
         });
         logger.error(
           { documentId, runId: connectorRunId },
